@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import CarCard from "./CarCard";
 import axios from "axios";
 import { SearchDataContext } from "@/context/SearchDataContext";
+import { CldUploadButton } from "next-cloudinary";
 
 const Modal = ({ modal, showModal, selectedCar }: any) => {
   const { searchData, setSearchData }: any = useContext(SearchDataContext);
@@ -274,12 +275,21 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                       name="dlNumber"
                       onChange={handlePersonalDetails}
                     />
-                    <input
-                      type="file"
+                    <CldUploadButton
                       className="file-input text-sm font-normalplaceholder-gray-700 file-input-bordered w-full max-w-xs"
-                      name="dlImage"
-                      onChange={handlePersonalDetails}
-                    />
+                      options={{ multiple: false }}
+                      uploadPreset={
+                        process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME
+                      }
+                      onUpload={(res: any) =>
+                        setPersonalDetails({
+                          ...personalDetails,
+                          dlImage: res?.info?.secure_url,
+                        })
+                      }
+                    >
+                      <span>Upload Driving License</span>
+                    </CldUploadButton>
                   </div>
                 </div>
                 <div className=" flex flex-col gap-1">
@@ -294,12 +304,21 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                       name="aadharNumber"
                       onChange={handlePersonalDetails}
                     />
-                    <input
-                      type="file"
+                    <CldUploadButton
                       className="file-input text-sm font-normalplaceholder-gray-700 file-input-bordered w-full max-w-xs"
-                      name="aadharImage"
-                      onChange={handlePersonalDetails}
-                    />
+                      options={{ multiple: true }}
+                      uploadPreset={
+                        process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME
+                      }
+                      onUpload={(res: any) =>
+                        setPersonalDetails({
+                          ...personalDetails,
+                          aadharImage: res?.info?.secure_url,
+                        })
+                      }
+                    >
+                      <span>Upload Aadhar Card</span>
+                    </CldUploadButton>
                   </div>
                 </div>
               </div>
