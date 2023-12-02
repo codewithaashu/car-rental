@@ -68,9 +68,6 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
       vehicleID: selectedCar.id,
     };
     const { data } = await axios.post("/api/booking", postData);
-    console.log(data);
-    console.log(personalDetails);
-    console.log(bookingDetails);
   };
   return (
     <>
