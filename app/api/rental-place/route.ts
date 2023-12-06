@@ -14,8 +14,6 @@ export async function GET(req: Request) {
       }
     `;
     const { rentalPlaces }: any = await request(API_URL, query);
-    console.log(rentalPlaces);
-
     return Response.json(rentalPlaces, { status: 200 });
   } catch (err) {
     return Response.json(err, { status: 500 });

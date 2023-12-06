@@ -32,7 +32,16 @@ const WriteToUs = () => {
         theme: "colored",
       });
     } else {
-      console.log("Message can't be delivered.");
+      toast.error("Message can't be delivered!", {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     }
   };
   const handleInput = (e: any) => {
