@@ -1,6 +1,6 @@
 const Hero = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 justify-around py-10 items-center gap-5 md:gap-2">
+    <div className="grid grid-cols-1 md:grid-cols-3 justify-around py-8 items-center gap-5 md:gap-2 px-5 sm:px-10 md:px-20">
       <div className="col-span-2 w-full md:w-1/2 order-2 md:order-1 flex flex-col gap-4">
         <h2 className="text-3xl md:text-5xl font-extrabold leading-tight md:leading-tight text-black">
           Premium Car <span className="text-red-600">Rental</span> in Your Area

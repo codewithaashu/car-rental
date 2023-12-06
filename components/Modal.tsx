@@ -300,12 +300,12 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                     <input
                       type="text"
                       placeholder="Aadhar Card Number"
-                      className="input text-sm font-normalplaceholder-gray-700 input-bordered w-full max-w-xs focus:outline-none"
+                      className="input text-sm font-normal placeholder-gray-700 input-bordered w-full max-w-xs focus:outline-none"
                       name="aadharNumber"
                       onChange={handlePersonalDetails}
                     />
                     <CldUploadButton
-                      className="file-input text-sm font-normalplaceholder-gray-700 file-input-bordered w-full max-w-xs"
+                      className="file-input text-sm font-normal placeholder-gray-700 file-input-bordered w-full max-w-xs"
                       options={{ multiple: true }}
                       uploadPreset={
                         process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME

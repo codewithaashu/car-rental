@@ -4,21 +4,23 @@ import { useContext } from "react";
 import axios from "axios";
 import { CarsContext } from "@/context/CarsContext";
 import { CarsErrorMessageContext } from "@/context/CarsErrorMessageContext";
-
+import { useRouter } from "next/navigation";
 const Search = () => {
   const { searchData, setSearchData }: any = useContext(SearchDataContext);
   const { setCarsList }: any = useContext(CarsContext);
+  const router = useRouter();
   const handleSearchBtn = async (e: any) => {
     const result = await axios.post("/api/car", searchData);
     setCarsList(result.data);
+    router.push("/booking");
   };
   return (
-    <div className="flex justify-center w-full">
+    <div className="flex justify-center w-full py-7 px-5 sm:px-10 md:px-20">
       <div className="flex flex-col gap-4 items-center">
         <div className="text-xl font-medium text-gray-500">
           Lets Search what you need
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 px-5 py-3 gap-5 md:gap-52 bg-gray-100  rounded-xl items-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 px-5 py-3 gap-5 md:gap-52 bg-slate-100  rounded-xl items-center">
           <div className="flex flex-col gap-2">
             <h2 className="text-base font-semibold px-2">City</h2>
             <select
