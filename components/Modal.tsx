@@ -1,12 +1,18 @@
 "use client";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CarCard from "./CarCard";
 import axios from "axios";
 import { SearchDataContext } from "@/context/SearchDataContext";
 import { CldUploadButton } from "next-cloudinary";
+import { useRouter } from "next/navigation";
+import { BookingContext } from "@/context/BookingContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Modal = ({ modal, showModal, selectedCar }: any) => {
-  const { searchData, setSearchData }: any = useContext(SearchDataContext);
+  const router = useRouter();
+  const { searchData }: any = useContext(SearchDataContext);
+  const { bookingData, setBookingData } = useContext(BookingContext);
   const [personalDetails, setPersonalDetails] = useState<any>({
     fname: "",
     lname: "",
@@ -68,7 +74,22 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
       dropOffInfo: dropOffDate + "," + dropOffTime,
       vehicleID: selectedCar.id,
     };
-    const { data } = await axios.post("/api/booking", postData);
+    const res = await axios.post("/api/booking", postData);
+    if (res.status === 200) {
+      setBookingData(res.data);
+      router.push("/review-pay");
+    } else {
+      toast.error("Booking can't be successfull!", {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
   };
   return (
     <>
@@ -107,6 +128,7 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                     disabled
                     selected
                     className="outline-none text-sm font-normal"
+                    defaultValue={0}
                   >
                     PickUp Location?
                   </option>
@@ -339,6 +361,7 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
           </div>
         </div>
       </dialog>
+      {/* <ToastContainer /> */}
     </>
   );
 };

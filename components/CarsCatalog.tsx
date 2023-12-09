@@ -87,7 +87,7 @@ const CarsCatalog = () => {
                 <option
                   disabled
                   selected
-                  className="outline-none text-lg font-bold"
+                  className="outline-none text-base font-medium"
                   value="0"
                 >
                   Price
@@ -106,7 +106,8 @@ const CarsCatalog = () => {
                 <option
                   disabled
                   selected
-                  className="outline-none text-lg font-bold"
+                  className="outline-none text-base font-medium"
+                  value="0"
                 >
                   Manufacture
                 </option>

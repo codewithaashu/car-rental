@@ -63,6 +63,10 @@ export async function POST(req: Request) {
     aadharImage
     drivingLicenseNumber
     drivingLicenseImage
+    car {
+      dailyPrice
+      imgSrc
+    }
   }
 }`;
     const { createBooking }: any = await request(API_URL, mutationQuery);

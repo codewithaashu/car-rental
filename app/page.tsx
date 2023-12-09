@@ -5,6 +5,7 @@ import HowWorks from "@/components/HowWorks";
 import Search from "@/components/Search";
 import Testinomial from "@/components/Testinomial";
 import { Metadata } from "next";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "CarLand - Rental Car",
@@ -22,6 +23,7 @@ export default function Home() {
         <ChooseUs />
         <Testinomial />
       </div>
+      <ToastContainer />
     </main>
   );
 }

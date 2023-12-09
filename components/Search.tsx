@@ -1,9 +1,8 @@
 "use client";
 import { SearchDataContext } from "@/context/SearchDataContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { CarsContext } from "@/context/CarsContext";
-import { CarsErrorMessageContext } from "@/context/CarsErrorMessageContext";
 import { useRouter } from "next/navigation";
 const Search = () => {
   const { searchData, setSearchData }: any = useContext(SearchDataContext);
@@ -14,6 +13,8 @@ const Search = () => {
     setCarsList(result.data);
     router.push("/booking");
   };
+  const today: any = new Date().toISOString().split("T")[0];
+  const [minDropDate, setMinDropDate] = useState<any>(null);
   return (
     <div className="flex justify-center w-full py-7 px-5 sm:px-10 md:px-20">
       <div className="flex flex-col gap-4 items-center">
@@ -32,7 +33,8 @@ const Search = () => {
               <option
                 disabled
                 selected
-                className="outline-none text-lg font-bold"
+                className="outline-none text-base font-medium"
+                value="0"
               >
                 Select City
               </option>
@@ -58,10 +60,12 @@ const Search = () => {
               <h2 className="text-base font-semibold pl-2">Pick Up Date</h2>
               <input
                 type="date"
-                className="input placeholder-gray-700 input-bordered w-3/4 md:w-full max-w-xs focus:outline-none"
-                onChange={(e) =>
-                  setSearchData({ ...searchData, pickUpDate: e.target.value })
-                }
+                className="input placeholder-gray-700 input-bordered w-3/4 md:w-full max-w-xs focus:outline-none "
+                min={today}
+                onChange={(e) => {
+                  setMinDropDate(e.target.value);
+                  setSearchData({ ...searchData, pickUpDate: e.target.value });
+                }}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -69,9 +73,10 @@ const Search = () => {
               <input
                 type="date"
                 className="input placeholder-gray-700 input-bordered w-3/4 md:w-full max-w-xs focus:outline-none"
-                onChange={(e) =>
-                  setSearchData({ ...searchData, dropOffDate: e.target.value })
-                }
+                min={minDropDate === null ? today : minDropDate}
+                onChange={(e) => {
+                  setSearchData({ ...searchData, dropOffDate: e.target.value });
+                }}
               />
             </div>
           </div>
