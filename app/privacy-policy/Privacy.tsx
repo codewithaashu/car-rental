@@ -5,7 +5,7 @@ const Privacy = () => {
   return (
     <div>
       <div className="flex justify-center">
-        <div className="flex flex-col p-10 w-4/5 items-center gap-8">
+        <div className="flex flex-col px-5 py-7 md:px-10 md:py-10 w-full md:w-4/5 items-center gap-8">
           <div className="text-2xl font-semibold ">Privacy Policy </div>
           <div className="flex flex-col gap-3">
             <h2 className="text-base font-medium">

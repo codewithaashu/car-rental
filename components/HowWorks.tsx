@@ -3,7 +3,7 @@ import React from "react";
 
 const HowWorks = () => {
   return (
-    <div className="flex flex-col gap-3 py-7 px-5 sm:px-10 md:px-20 bg-slate-50">
+    <div className="flex flex-col gap-3 py-7 px-5 sm:px-10 md:px-20 bg-[#F1F2F6]">
       <center>
         <h2 className="text-sm font-medium uppercase text-gray-500">
           How it works

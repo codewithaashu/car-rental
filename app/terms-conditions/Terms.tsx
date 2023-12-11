@@ -4,7 +4,7 @@ import React from "react";
 const Terms = () => {
   return (
     <div className="flex justify-center">
-      <div className="flex flex-col p-10 w-4/5 items-center gap-8">
+      <div className="flex flex-col px-5 py-7 md:px-10 md:py-10 w-full md:w-4/5 items-center gap-8">
         <div className="text-2xl font-semibold ">TERMS & CONDITIONS</div>
         <div className="flex flex-col gap-3">
           <h2 className="text-base font-medium">
@@ -23,7 +23,9 @@ const Terms = () => {
             return (
               <div key={index}>
                 <h2 className="text-xl font-medium">{curr.heading}</h2>
-                <h2 id="content">{curr.content}</h2>
+                <h2 id="content" className="text-base font-normal">
+                  {curr.content}
+                </h2>
               </div>
             );
           })}

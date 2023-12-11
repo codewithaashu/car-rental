@@ -16,23 +16,23 @@ const Search = () => {
   const today: any = new Date().toISOString().split("T")[0];
   const [minDropDate, setMinDropDate] = useState<any>(null);
   return (
-    <div className="flex justify-center w-full py-7 px-5 sm:px-10 md:px-20">
+    <div className="flex justify-center w-full pb-7 pt-5 px-5 sm:px-10 md:px-20 bg-white">
       <div className="flex flex-col gap-4 items-center">
         <div className="text-xl font-medium text-gray-500">
           Lets Search what you need
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 px-5 py-3 gap-5 md:gap-52 bg-slate-100  rounded-xl items-center">
-          <div className="flex flex-col gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 px-5 py-6 gap-5 md:gap-52 rounded-lg items-center bg-white shadow-md border-2 border-gray-200">
+          <div className="flex flex-col gap-2 w-full">
             <h2 className="text-base font-semibold px-2">City</h2>
             <select
-              className="select select-bordered  w-fit max-w-xs bg-transparent text-sm font-medium  focus:outline-none focus:border-gray-300 bg-white"
+              className="select select-bordered w-full md:w-fit max-w-xs bg-transparent text-sm font-medium  focus:outline-none focus:border-gray-300 bg-white"
               onChange={(e: any) =>
                 setSearchData({ ...searchData, city: e.target.value })
               }
+              defaultValue="0"
             >
               <option
                 disabled
-                selected
                 className="outline-none text-base font-medium"
                 value="0"
               >

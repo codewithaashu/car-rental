@@ -32,7 +32,7 @@ const Available = () => {
             </div>
           </div>
         </div>
-        <div className="py-3 border-b-[1px] border-gray-300 flex flex-col gap-2">
+        <div className="py-3  flex flex-col gap-2">
           <h2 className="text-xl font-semibold">Branch Office</h2>
           <div className="flex items-center gap-5">
             <div className="p-2 rounded-full shadow-xl border-2 border-red-500 w-fit h-fit">

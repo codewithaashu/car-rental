@@ -44,7 +44,7 @@ const CarCard = ({ car, isModal }: any) => {
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
-                  stroke-width="0"
+                  strokeWidth="0"
                   viewBox="0 0 24 24"
                   className="text-[18px] md:text[22px] mb-2"
                   height="1em"
@@ -62,7 +62,7 @@ const CarCard = ({ car, isModal }: any) => {
                 <svg
                   stroke="currentColor"
                   fill="currentColor"
-                  stroke-width="0"
+                  strokeWidth="0"
                   viewBox="0 0 512 512"
                   className="text-[18px] md:text[22px] mb-2"
                   height="1em"
@@ -108,7 +108,7 @@ const CarCard = ({ car, isModal }: any) => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 256 256"
                 className="text-[18px] md:text[22px] mb-2"
                 height="1em"
@@ -125,7 +125,7 @@ const CarCard = ({ car, isModal }: any) => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 24 24"
                 className="text-[18px] md:text[22px] mb-2"
                 height="1em"
@@ -143,7 +143,7 @@ const CarCard = ({ car, isModal }: any) => {
               <svg
                 stroke="currentColor"
                 fill="currentColor"
-                stroke-width="0"
+                strokeWidth="0"
                 viewBox="0 0 512 512"
                 className="text-[18px] md:text[22px] mb-2"
                 height="1em"

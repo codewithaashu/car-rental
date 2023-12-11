@@ -12,7 +12,7 @@ const ExploreRentals = () => {
   }, []);
   return (
     <>
-      <div className="flex flex-col py-7 items-center gap-5 bg-slate-50">
+      <div className="flex flex-col py-7 items-center gap-5 bg-[#F1F2F6]">
         <h2 className="text-xl md:text-2xl font-semibold">
           Explore Rentals in
         </h2>
@@ -34,18 +34,16 @@ const ExploreRentals = () => {
               })
           ) : (
             <>
-              <center className="hidden md:flex gap-5 items-center">
-                <div className="skeleton h-[100px] md:h-[140px] rounded-md min-w-[150px] max-w-[155px]"></div>
-                <div className="skeleton h-[100px] md:h-[140px] rounded-md min-w-[150px] max-w-[155px]"></div>
-                <div className="skeleton h-[100px] md:h-[140px] rounded-md min-w-[150px] max-w-[155px]"></div>
-                <div className="skeleton h-[100px] md:h-[140px] rounded-md min-w-[150px] max-w-[155px]"></div>
-                <div className="skeleton h-[100px] md:h-[140px] rounded-md min-w-[150px] max-w-[155px]"></div>
-                <div className="skeleton h-[100px] md:h-[140px] rounded-md min-w-[150px] max-w-[155px]"></div>
-              </center>
-              <center className="flex md:hidden gap-5 items-center">
-                <div className="skeleton h-[100px] md:h-[140px] rounded-md min-w-[150px] max-w-[155px]"></div>
-                <div className="skeleton h-[100px] md:h-[140px] rounded-md min-w-[150px] max-w-[155px]"></div>
-              </center>
+              <div className="flex gap-5 p-3 w-full md:w-4/5 overflow-x-auto">
+                {new Array(8).fill(0).map((curr, index) => {
+                  return (
+                    <div
+                      className="skeleton flex flex-col gap-2 items-center h-[130px] md:h-[170px] rounded-md min-w-[150px] max-w-[155px]"
+                      key={index}
+                    ></div>
+                  );
+                })}
+              </div>
             </>
           )}
         </div>

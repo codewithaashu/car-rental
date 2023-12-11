@@ -9,6 +9,7 @@ import { CarsContext } from "@/context/CarsContext";
 import { CarsErrorMessageContext } from "@/context/CarsErrorMessageContext";
 import { useState } from "react";
 import { BookingContext } from "@/context/BookingContext";
+import { ConfirmBookingContext } from "@/context/ConfirmBookingContext";
 
 const inter = Outfit({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
   const [carsList, setCarsList] = useState<any>(null);
   const [carsErrorMessasge, setCarsErrorMessage] = useState<any>(null);
   const [bookingData, setBookingData] = useState<any>(null);
+  const [confirmBookingData, setConfirmBookingData] = useState<any>(null);
   return (
     <ClerkProvider>
       <html lang="en">
@@ -38,7 +40,11 @@ export default function RootLayout({
                 <BookingContext.Provider
                   value={{ bookingData, setBookingData }}
                 >
-                  {children}
+                  <ConfirmBookingContext.Provider
+                    value={{ confirmBookingData, setConfirmBookingData }}
+                  >
+                    {children}
+                  </ConfirmBookingContext.Provider>
                 </BookingContext.Provider>
               </CarsErrorMessageContext.Provider>
             </CarsContext.Provider>

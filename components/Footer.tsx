@@ -1,26 +1,76 @@
+import Link from "next/link";
+
 const Footer = () => {
   return (
     <>
       <footer className="footer p-10 bg-base-200 text-base-content">
         <nav>
-          <header className="footer-title">Services</header>
-          <a className="link link-hover">Rent Car</a>
-          <a className="link link-hover">Register your Car</a>
-          <a className="link link-hover">Become Partner</a>
+          <header className="footer-title text-base font-semibold">
+            Services
+          </header>
+          <Link
+            href="/booking"
+            className="link link-hover text-[15px] font-medium"
+          >
+            Rent Car
+          </Link>
+          <Link
+            href="/contact-us"
+            className="link link-hover text-[15px] font-medium"
+          >
+            Register your Car
+          </Link>
+          <Link
+            href="/contact-us"
+            className="link link-hover text-[15px] font-medium"
+          >
+            Become Partner
+          </Link>
         </nav>
         <nav>
-          <header className="footer-title">Company</header>
-          <a className="link link-hover">About us</a>
-          <a className="link link-hover">Contact</a>
-          <a className="link link-hover">Jobs</a>
+          <header className="footer-title text-base font-semibold">
+            Company
+          </header>
+          <Link
+            href="/about"
+            className="link link-hover text-[15px] font-medium"
+          >
+            About us
+          </Link>
+          <Link
+            href="/contact-us"
+            className="link link-hover text-[15px] font-medium"
+          >
+            Contact us
+          </Link>
+          <Link
+            href="/contact-us"
+            className="link link-hover text-[15px] font-medium"
+          >
+            Jobs
+          </Link>
         </nav>
         <nav>
-          <header className="footer-title">Legal</header>
-          <a className="link link-hover">Terms & Conditions</a>
-          <a className="link link-hover">Privacy policy</a>
+          <header className="footer-title text-base font-semibold">
+            Legal
+          </header>
+          <Link
+            href="/terms-conditions"
+            className="link link-hover text-[15px] font-medium"
+          >
+            Terms & Conditions
+          </Link>
+          <Link
+            href="/privacy-policy"
+            className="link link-hover text-[15px] font-medium "
+          >
+            Privacy policy
+          </Link>
         </nav>
         <nav>
-          <header className="footer-title">Social</header>
+          <header className="footer-title text-base font-semibold">
+            Social
+          </header>
           <div className="grid grid-flow-col gap-4">
             <a>
               <svg

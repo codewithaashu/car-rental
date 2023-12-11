@@ -14,7 +14,7 @@ const Testinomial = () => {
   };
   return (
     <>
-      <div className="flex flex-col gap-3 py-7 bg-slate-50 px-5 sm:px-10 md:px-20">
+      <div className="flex flex-col gap-3 py-7 bg-[#F1F2F6] px-5 sm:px-10 md:px-20">
         <center>
           <h2 className="text-sm font-medium uppercase text-gray-500">
             Testinomials
@@ -29,7 +29,7 @@ const Testinomial = () => {
               const { imgSrc, content, authorName } = curr;
               return (
                 <div
-                  className="p-5 border-2 rounded-md shadow-md flex flex-col gap-3 relative w-4/5 justify-self-center"
+                  className="p-5 border-2 rounded-md shadow-md flex flex-col gap-3 relative w-4/5 justify-self-center bg-white"
                   key={index}
                 >
                   <svg
@@ -47,7 +47,9 @@ const Testinomial = () => {
                   </center>
                   <div className="flex flex-col gap-2">
                     <div className="text-base font-normal text-gray-500">
-                      {content}
+                      {content.lengt > 100
+                        ? content.slice(0, 50) + "..."
+                        : content}
                     </div>
                     <div className="text-base font-semibold">
                       - {authorName}
@@ -58,13 +60,18 @@ const Testinomial = () => {
             })}
           </div>
         ) : (
-          <div className="flex w-full justify-center py-5">
-            <div className="flex flex-col gap-4 w-3/4 md:w-3/5">
-              <div className="skeleton h-32 w-full"></div>
-              <div className="skeleton h-4 w-28"></div>
-              <div className="skeleton h-4 w-full"></div>
-              <div className="skeleton h-4 w-full"></div>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 py-5 ">
+            {new Array(4).fill(0).map((curr, index) => {
+              return (
+                <div
+                  className="p-5 border-2 rounded-md shadow-md flex flex-col gap-3 relative w-4/5 justify-self-center bg-white"
+                  key={index}
+                >
+                  <div className="skeleton h-[80px] w-[120px]"></div>
+                  <div className="skeleton h-[100px]"></div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

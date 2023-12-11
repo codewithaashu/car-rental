@@ -25,7 +25,6 @@ const CarBrand = () => {
         {carBrands ? (
           <div className="grid grid-cols-3 md:grid-cols-6 gap-5 py-3">
             {carBrands?.slice(0, 6).map((curr: any, index: any) => {
-              // if (!curr.featured) return;
               return (
                 <div className="flex flex-col items-center gap-1" key={index}>
                   <img src={curr.imgSrc} alt="" className="w-[90px] h-[90px]" />
@@ -35,13 +34,15 @@ const CarBrand = () => {
             })}
           </div>
         ) : (
-          <div className="flex w-full justify-center py-3">
-            <div className="flex flex-col gap-4 w-3/4 md:w-3/5">
-              <div className="skeleton h-32 w-full"></div>
-              <div className="skeleton h-4 w-28"></div>
-              <div className="skeleton h-4 w-full"></div>
-              <div className="skeleton h-4 w-full"></div>
-            </div>
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-5 py-3 w-full">
+            {new Array(6).fill(0).map((curr, index) => {
+              return (
+                <div className="flex flex-col items-center gap-1" key={index}>
+                  <div className="skeleton w-[90px] h-[90px]"></div>
+                  <div className="skeleton h-7"></div>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>

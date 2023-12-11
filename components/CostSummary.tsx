@@ -1,15 +1,22 @@
 "use client";
 import { coupons } from "@/DB/coupons";
+import { ConfirmBookingContext } from "@/context/ConfirmBookingContext";
 import { diffDates } from "@/utils/DateFunc";
-import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { redirect, useRouter } from "next/navigation";
+import React, { useContext, useEffect, useState } from "react";
 
 const CostSummary = ({ bookingData }: any) => {
+  const router = useRouter();
   const [promoCode, setPromoCode] = useState<any>(null);
   const [errorPromo, setErrorPromo] = useState<any>(false);
   const [promoMessage, setPromoMessage] = useState<any>(null);
   const [paymentType, setPaymentType] = useState<any>(null);
   const [couponValue, setCouponValue] = useState<any>(0);
-  const { car, pickUpInfo, dropOffInfo } = bookingData;
+  const { confirmBookingData, setConfirmBookingData } = useContext(
+    ConfirmBookingContext
+  );
+  const { car, pickUpInfo, dropOffInfo, id, name, contactNumber } = bookingData;
   useEffect(() => {}, [paymentType || errorPromo]);
 
   const handlePromoCodeSubmit = () => {
@@ -28,6 +35,64 @@ const CostSummary = ({ bookingData }: any) => {
       setErrorPromo(true);
       setPromoMessage("Invalid Coupon");
     }
+  };
+
+  const makePayment = async ({ bookingID, billingAmount }: any) => {
+    //initialize razorpay
+    const res = await initializeRazorpay();
+    //if razorpay is not initialized
+    if (!res) {
+      alert("Razorpay Failed to load");
+      return;
+    }
+    // Make API call for creating an order that will show on razorpay popup
+    const { data } = await axios.post("/api/razorpay", {
+      bookingID,
+      billingAmount,
+    });
+    var options = {
+      key: process.env.NEXT_PUBLIC_RAZORPAY_ID,
+      name: "CarLand Pvt Ltd",
+      currency: data.currency,
+      amount: data.amount,
+      order_id: data.id,
+      description: `Payment for Booking Id = ${id} by ${name}`,
+      image: "/logo.svg",
+      handler: async function (response: any) {
+        if (response) {
+          const { data } = await axios.post("/api/confirmBooking", {
+            paymentId: response.razorpay_payment_id,
+            orderId: response.razorpay_order_id,
+            paymentAmount: billingAmount,
+            id,
+          });
+          setConfirmBookingData({ ...data, totalAmount });
+        }
+        router.push("/confirm-booking");
+      },
+      prefill: {
+        name,
+        email: "carLandPvt@gmail.com",
+        contact: contactNumber,
+      },
+    };
+
+    //open the razorpay popup
+    const paymentObject = new (window as any).Razorpay(options);
+    paymentObject.open();
+  };
+  const initializeRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
   };
 
   //calculate data
@@ -130,11 +195,19 @@ const CostSummary = ({ bookingData }: any) => {
       </div>
       <div className="flex justify-center">
         {paymentType === null ? (
-          <button className="text-base font-medium bg-red-500 text-white px-4 py-2   cursor-pointer my-5 w-3/4">
+          <button className="text-base font-medium bg-gray-500 text-white px-4 py-2   cursor-pointer my-5 w-3/4">
             Pay
           </button>
         ) : (
-          <button className="text-base font-medium bg-red-500 text-white px-4 py-2   cursor-pointer my-5 w-3/4">
+          <button
+            className="text-base font-medium bg-red-500 text-white px-4 py-2   cursor-pointer my-5 w-3/4"
+            onClick={() =>
+              makePayment({
+                bookingID: id,
+                billingAmount: paymentType === -1 ? 2000 : totalAmount,
+              })
+            }
+          >
             Pay &#8377;
             {paymentType === -1 ? 2000 : totalAmount}
           </button>

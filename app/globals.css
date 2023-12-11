@@ -16,7 +16,16 @@
   }
 }
 
-body {
+/* css for react to print package */
+.print-agreement {
+  margin: 40px;
+}
+@media print {
+  html,
+  body {
+    min-height: 100vh !important;
+    overflow: initial !important;
+  }
 }
 
 /* Loading */

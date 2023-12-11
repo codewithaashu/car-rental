@@ -8,11 +8,13 @@ import { useRouter } from "next/navigation";
 import { BookingContext } from "@/context/BookingContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { isValid } from "@/utils/ValidFieldFunc";
 
 const Modal = ({ modal, showModal, selectedCar }: any) => {
   const router = useRouter();
+  const [isAllFieldValidState, setIsAllFieldValidState] = useState<any>(1);
   const { searchData }: any = useContext(SearchDataContext);
-  const { bookingData, setBookingData } = useContext(BookingContext);
+  const { setBookingData } = useContext(BookingContext);
   const [personalDetails, setPersonalDetails] = useState<any>({
     fname: "",
     lname: "",
@@ -33,13 +35,36 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
     dropOffDate: searchData.dropOffDate,
     dropOffTime: "",
   });
+  const [errorMessages, setErrorMessage] = useState<any>(null);
+  const [validField, setValidField] = useState<any>({
+    pickUpLocation: false,
+    pickUpTime: false,
+    dropOffTime: false,
+    fname: false,
+    lname: true,
+    address1: false,
+    address2: true,
+    city: false,
+    state: false,
+    contactNumber: false,
+    dlNumber: false,
+    dlImage: false,
+    aadharNumber: false,
+    aadharImage: false,
+  });
   const handlePersonalDetails = (e: any) => {
     const inputValue = e.target.value;
     setPersonalDetails({ ...personalDetails, [e.target.name]: inputValue });
+    const { valid, message }: any = isValid(e.target.name, inputValue);
+    setErrorMessage({ ...errorMessages, [e.target.name]: message });
+    setValidField({ ...validField, [e.target.name]: valid });
   };
   const handleBooking = (e: any) => {
     const inputValue = e.target.value;
     setBookingDetails({ ...bookingDetails, [e.target.name]: inputValue });
+    const { valid, message }: any = isValid(e.target.name, inputValue);
+    setErrorMessage({ ...errorMessages, [e.target.name]: message });
+    setValidField({ ...validField, [e.target.name]: valid });
   };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -91,6 +116,20 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
       });
     }
   };
+  const isAllFieldValid = () => {
+    let obj = Object.keys(validField);
+    let isAllValid = 1;
+    for (let i = 0; i < obj.length; i++) {
+      if (validField[obj[i]] === false) {
+        isAllValid = 0;
+        break;
+      }
+    }
+    setIsAllFieldValidState(isAllValid);
+  };
+  useEffect(() => {
+    isAllFieldValid();
+  }, [validField]);
   return (
     <>
       <dialog id="my_modal_5" className={`${modal ? "modal-open" : ""} modal`}>
@@ -116,25 +155,26 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                   Pick Up Location
                 </h2>
                 <select
-                  className="select select-bordered  w-full max-w-xs md:max-w-full bg-transparent text-sm font-medium border-2 border-gray-300 focus:outline-none focus:border-gray-300"
-                  onChange={(e) =>
+                  className="select select-bordered  w-full max-w-xs md:max-w-full bg-transparent text-sm font-medium border-2 border-gray-300 focus:outline-none focus:border-gray-300 bg-white"
+                  onChange={(e) => {
+                    setValidField({ ...validField, pickUpLocation: true });
                     setBookingDetails({
                       ...bookingDetails,
                       pickUpLocation: e.target.value,
-                    })
-                  }
+                    });
+                  }}
+                  defaultValue="0"
                 >
                   <option
                     disabled
-                    selected
-                    className="outline-none text-sm font-normal"
-                    defaultValue={0}
+                    className="outline-none text-base font-medium"
+                    value="0"
                   >
                     PickUp Location?
                   </option>
                   {selectedCar?.pickupLocation.map((curr: any, index: any) => {
                     return (
-                      <option className="text-sm" key={index} value={curr}>
+                      <option className="text-base" key={index} value={curr}>
                         {curr}
                       </option>
                     );
@@ -176,6 +216,11 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                     name="pickUpTime"
                     onChange={handleBooking}
                   />
+                  {!validField.pickUpTime && (
+                    <span className="text-xs font-medium px-3 text-red-500">
+                      {errorMessages?.pickUpTime}
+                    </span>
+                  )}
                 </div>
                 <div className="flex flex-col gap-1">
                   <h2 className="text-base font-medium text-gray-500">
@@ -187,6 +232,11 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                     name="dropOffTime"
                     onChange={handleBooking}
                   />
+                  {!validField.dropOffTime && (
+                    <span className="text-xs font-medium px-3 text-red-500">
+                      {errorMessages?.dropOffTime}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="divider m-0"></div>
@@ -194,7 +244,7 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                 <div className="text-lg font-medium text-black">
                   Personal Details
                 </div>
-                <div className="grid grid-cols-2 justify-center items-center gap-3">
+                <div className="grid grid-cols-2 justify-center gap-3">
                   <div className="flex flex-col gap-1">
                     <h2 className="text-base font-medium text-gray-500 ">
                       First Name
@@ -206,6 +256,11 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                       name="fname"
                       onChange={handlePersonalDetails}
                     />
+                    {!validField.fname && (
+                      <span className="text-xs font-medium text-red-500 w-full">
+                        {errorMessages?.fname}
+                      </span>
+                    )}
                   </div>
                   <div className="flex flex-col gap-1">
                     <h2 className="text-base font-medium  text-gray-500">
@@ -218,6 +273,11 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                       name="lname"
                       onChange={handlePersonalDetails}
                     />
+                    {!validField.lname && (
+                      <span className="text-xs font-medium  text-red-500 w-full">
+                        {errorMessages?.lname}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
@@ -232,6 +292,11 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                       name="address1"
                       onChange={handlePersonalDetails}
                     />
+                    {!validField.address1 && (
+                      <span className="text-xs font-medium px-3 text-red-500">
+                        {errorMessages?.address1}
+                      </span>
+                    )}
                   </div>
                   <div className="flex flex-col gap-1 w-full">
                     <h2 className="text-base font-medium text-gray-500">
@@ -244,8 +309,13 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                       name="address2"
                       onChange={handlePersonalDetails}
                     />
+                    {!validField.address2 && (
+                      <span className="text-xs font-medium px-3 text-red-500">
+                        {errorMessages?.address2}
+                      </span>
+                    )}
                   </div>
-                  <div className="grid grid-cols-2 justify-center items-center gap-3">
+                  <div className="grid grid-cols-2 justify-center gap-3">
                     <div className="flex flex-col gap-1">
                       <h2 className="text-base font-medium text-gray-500">
                         City
@@ -257,6 +327,11 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                         name="city"
                         onChange={handlePersonalDetails}
                       />
+                      {!validField.city && (
+                        <span className="text-xs font-medium px-3 text-red-500">
+                          {errorMessages?.city}
+                        </span>
+                      )}
                     </div>
                     <div className="flex flex-col gap-1">
                       <h2 className="text-base font-medium text-gray-500">
@@ -269,6 +344,11 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                         name="state"
                         onChange={handlePersonalDetails}
                       />
+                      {!validField.state && (
+                        <span className="text-xs font-medium px-3 text-red-500">
+                          {errorMessages?.state}
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -284,12 +364,17 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                     name="contactNumber"
                     onChange={handlePersonalDetails}
                   />
+                  {!validField.contactNumber && (
+                    <span className="text-xs font-medium px-3 text-red-500">
+                      {errorMessages?.contactNumber}
+                    </span>
+                  )}
                 </div>
-                <div className=" flex flex-col gap-1">
-                  <h2 className="text-base font-medium text-gray-500">
-                    Driving License
-                  </h2>
-                  <div className="grid grid-cols-2 justify-center items-center gap-3">
+                <div className="grid grid-cols-2 justify-center gap-3">
+                  <div className=" flex flex-col gap-1">
+                    <h2 className="text-base font-medium text-gray-500">
+                      Driving License
+                    </h2>
                     <input
                       type="text"
                       placeholder="Driving License Number"
@@ -297,28 +382,42 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                       name="dlNumber"
                       onChange={handlePersonalDetails}
                     />
+                    {!validField.dlNumber && (
+                      <span className="text-xs font-medium px-3 text-red-500">
+                        {errorMessages?.dlNumber}
+                      </span>
+                    )}
+                  </div>
+                  <div className=" flex flex-col gap-1 pt-7">
                     <CldUploadButton
-                      className="file-input text-sm font-normalplaceholder-gray-700 file-input-bordered w-full max-w-xs"
                       options={{ multiple: false }}
                       uploadPreset={
                         process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME
                       }
-                      onUpload={(res: any) =>
-                        setPersonalDetails({
-                          ...personalDetails,
-                          dlImage: res?.info?.secure_url,
-                        })
-                      }
+                      onUpload={(res: any) => {
+                        if (res?.event === "success") {
+                          setValidField({ ...validField, dlImage: true });
+                          setPersonalDetails({
+                            ...personalDetails,
+                            dlImage: res?.info?.secure_url,
+                          });
+                        } else {
+                          setValidField({ ...validField, dlImage: false });
+                        }
+                      }}
+                      className={`file-input text-sm font-normal placeholder-gray-700 file-input-bordered w-full max-w-xs ${
+                        validField.dlImage ? "bg-green-700 text-white" : ""
+                      }`}
                     >
                       <span>Upload Driving License</span>
                     </CldUploadButton>
                   </div>
                 </div>
-                <div className=" flex flex-col gap-1">
-                  <h2 className="text-base font-medium text-gray-500">
-                    Aadhar Card
-                  </h2>
-                  <div className="grid grid-cols-2 justify-center items-center gap-3">
+                <div className="grid grid-cols-2 justify-center gap-3">
+                  <div className=" flex flex-col gap-1">
+                    <h2 className="text-base font-medium text-gray-500">
+                      Aadhar Card
+                    </h2>
                     <input
                       type="text"
                       placeholder="Aadhar Card Number"
@@ -326,18 +425,32 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
                       name="aadharNumber"
                       onChange={handlePersonalDetails}
                     />
+                    {!validField.aadharNumber && (
+                      <span className="text-xs font-medium px-3 text-red-500">
+                        {errorMessages?.aadharNumber}
+                      </span>
+                    )}
+                  </div>
+                  <div className=" flex flex-col gap-1 pt-7">
                     <CldUploadButton
-                      className="file-input text-sm font-normal placeholder-gray-700 file-input-bordered w-full max-w-xs"
                       options={{ multiple: true }}
                       uploadPreset={
                         process.env.NEXT_PUBLIC_CLOUDINARY_PRESET_NAME
                       }
-                      onUpload={(res: any) =>
-                        setPersonalDetails({
-                          ...personalDetails,
-                          aadharImage: res?.info?.secure_url,
-                        })
-                      }
+                      onUpload={(res: any) => {
+                        if (res?.event === "success") {
+                          setValidField({ ...validField, aadharImage: true });
+                          setPersonalDetails({
+                            ...personalDetails,
+                            aadharImage: res?.info?.secure_url,
+                          });
+                        } else {
+                          setValidField({ ...validField, aadharImage: false });
+                        }
+                      }}
+                      className={`file-input text-sm font-normal placeholder-gray-700 file-input-bordered w-full max-w-xs ${
+                        validField.aadharImage ? "bg-green-700 text-white" : ""
+                      }`}
                     >
                       <span>Upload Aadhar Card</span>
                     </CldUploadButton>
@@ -354,7 +467,11 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
               >
                 Close
               </button>
-              <button className="btn btn-primary" onClick={handleSubmit}>
+              <button
+                className="btn btn-primary"
+                onClick={handleSubmit}
+                disabled={isAllFieldValidState == 1 ? false : true}
+              >
                 Submit
               </button>
             </form>
