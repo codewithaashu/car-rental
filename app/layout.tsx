@@ -30,6 +30,9 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+        <head>
+          <link rel="shortcut icon" href="/favicon.png" />
+        </head>
         <body className={inter.className}>
           <Header />
           <SearchDataContext.Provider value={{ searchData, setSearchData }}>
