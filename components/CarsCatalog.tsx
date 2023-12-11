@@ -72,16 +72,16 @@ const CarsCatalog = () => {
         </main>
       ) : (
         <div className="flex flex-col gap-4 py-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 justify-between items-center gap-3">
-            <div className="flex flex-col gap-1 justify-self-center">
-              <div className="text-2xl font-bold text-center">Cars Catalog</div>
+          <div className="grid grid-cols-1 md:flex justify-between items-center gap-3">
+            <div className="flex flex-col gap-1">
+              <div className="text-2xl font-bold">Cars Catalog</div>
               <div className="text-base font-medium">
                 Explore our cars you might likes
               </div>
             </div>
             <div className="flex gap-2">
               <select
-                className="select w-full max-w-xs bg-transparent text-base font-medium border-2 border-black focus:outline-none focus:border-black"
+                className="select w-full md:w-fit max-w-xs bg-transparent text-base font-medium border-2 border-black focus:outline-none focus:border-black"
                 onChange={handlePriceFilter}
                 defaultValue="0"
               >
@@ -100,7 +100,7 @@ const CarsCatalog = () => {
                 </option>
               </select>
               <select
-                className="select w-full max-w-xs bg-transparent text-base font-medium border-2 border-black focus:outline-none focus:border-black"
+                className="select w-full md:w-fit max-w-xs bg-transparent text-base font-medium border-2 border-black focus:outline-none focus:border-black"
                 onChange={handleManufactureFilter}
                 defaultValue="0"
               >
