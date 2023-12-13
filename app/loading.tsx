@@ -1,5 +1,5 @@
 import "./globals.css";
-const loading = () => {
+const Loading = () => {
   return (
     <div className="loading_section">
       <div className="lds_spinner">
@@ -20,4 +20,4 @@ const loading = () => {
   );
 };
 
-export default loading;
+export default Loading;

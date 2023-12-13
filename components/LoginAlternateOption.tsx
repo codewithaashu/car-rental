@@ -1,36 +1,33 @@
 "use client";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 const LoginAlternateOption = () => {
-  const { data: session } = useSession();
   return (
-    <div className="flex flex-col gap-3">
-      <div className="divider text-gray-600">Or</div>
-      <div className="flex flex-col gap-5">
-        <div className="bg-[#4267b2] text-white flex p-3 items-center justify-evenly rounded-md cursor-pointer text-base font-semibold">
-          <i className="fa-brands fa-facebook" color="#0171d3"></i>
-          <h2>Login with Facebook</h2>
-        </div>
-        <div
-          className="border-[1px] bg-white border-[#CACACA] text-gray-700 flex p-3 items-center justify-evenly rounded-md cursor-pointer text-base font-semibold"
-          onClick={() => signIn("google")}
-        >
+    <div className="flex flex-col gap-4">
+      <div className="divider text-gray-600 mt-3 mb-0">Or</div>
+      <h2 className="text-gray-700 text-center text-base font-semibold">
+        Login with
+      </h2>
+      <div className="flex w-full justify-evenly">
+        <div onClick={() => signIn("facebook")}>
           <img
-            src="https://res.cloudinary.com/ddzlhdlda/image/upload/v1702476682/1200px-Google__22G_22_logo.svg_qo1yvp.png"
+            src="https://res.cloudinary.com/ddzlhdlda/image/upload/v1702501361/CarRental/Facebook_Logo_2023_seqnrv.png"
             alt="Google logo"
-            className="h-[24px]"
+            className="h-[24px] cursor-pointer"
           />
-          <h2>Login with Google</h2>
         </div>
-        <div
-          className="border-[1px] bg-white border-[#CACACA] text-gray-700 flex p-3 items-center justify-evenly rounded-md cursor-pointer text-base font-semibold"
-          onClick={() => signIn()}
-        >
+        <div onClick={() => signIn("google")}>
           <img
-            src="https://res.cloudinary.com/ddzlhdlda/image/upload/v1702477114/25231_ej39nb.png"
+            src="https://res.cloudinary.com/ddzlhdlda/image/upload/v1702501933/CarRental/1200px-Google__22G_22_logo.svg_qo1yvp_ehbg8f.png"
             alt="Google logo"
-            className="h-[24px]"
+            className="h-[24px] cursor-pointer"
           />
-          <h2>Login with Github</h2>
+        </div>
+        <div onClick={() => signIn("github")}>
+          <img
+            src="https://res.cloudinary.com/ddzlhdlda/image/upload/v1702501958/CarRental/25231_ej39nb_mzrsfx.png"
+            alt="Google logo"
+            className="h-[24px] cursor-pointer"
+          />
         </div>
       </div>
     </div>

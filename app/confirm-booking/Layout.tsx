@@ -1,16 +1,26 @@
 "use client";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import PrintPage from "@/components/PrintPage";
 import { ConfirmBookingContext } from "@/context/ConfirmBookingContext";
 import React, { useContext, useRef } from "react";
 import ReactToPrint from "react-to-print";
-
+import { LoginUserContext } from "@/context/LoginUserContext";
+import { useRouter } from "next/navigation";
 const Layout = () => {
   const ref: any = useRef<HTMLDivElement>();
   const { confirmBookingData, setConfirmBookingData } = useContext(
     ConfirmBookingContext
   );
+  const router = useRouter();
+  const { loginUser } = useContext(LoginUserContext);
+  if (!loginUser) {
+    router.push("/");
+    return;
+  }
   return (
     <>
+      <Header />
       <main className="flex min-w-full justify-center items-center my-10">
         <div className="flex flex-col items-center rounded-md border-2 border-gray-100 shadow-md p-5 w-11/12 md:w-3/4">
           <img
@@ -54,6 +64,7 @@ const Layout = () => {
       <div style={{ display: "none" }}>
         <div ref={ref}>{confirmBookingData && <PrintPage />}</div>
       </div>
+      <Footer />
     </>
   );
 };

@@ -1,8 +1,11 @@
+"use context";
 import Image from "next/image";
-import React from "react";
-import { UserButton } from "@clerk/nextjs";
+import React, { useContext } from "react";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
+import { LoginUserContext } from "@/context/LoginUserContext";
 const Header = () => {
+  const { loginUser } = useContext(LoginUserContext);
   return (
     <>
       <div className="hidden md:flex justify-between p-5 items-center border-b-2 shadow-sm">
@@ -50,8 +53,38 @@ const Header = () => {
             Terms & Conditions
           </Link>
         </div>
-        <div>
-          <UserButton afterSignOutUrl="/" />
+        <div className="dropdown dropdown-end">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost btn-circle avatar"
+          >
+            <div className="w-10 rounded-full">
+              <img
+                alt="User Avatar"
+                src={
+                  loginUser?.image ??
+                  "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                }
+              />
+            </div>
+          </div>
+          <ul
+            tabIndex={0}
+            className=" z-[1] shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 mt-3"
+          >
+            <li className="flex flex-col gap-1 m-0 p-0">
+              <h2 className="text-base font-medium text-gray-700">
+                {loginUser?.name ?? "Anonymous"}
+              </h2>
+              <h2 className="text-[13px] font-medium text-gray-500 ">
+                {loginUser?.email ?? "null@gmail.com"}
+              </h2>
+            </li>
+            <li onClick={() => signOut()} className="py-3">
+              <a className="text-base font-medium text-gray-600">Logout</a>
+            </li>
+          </ul>
         </div>
       </div>
       <div className="navbar bg-base-100 md:hidden">
@@ -138,7 +171,44 @@ const Header = () => {
           </a>
         </div>
         <div className="navbar-end">
-          <UserButton afterSignOutUrl="/" />
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost btn-circle avatar"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="User Avatar"
+                  src={
+                    loginUser?.image ??
+                    "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
+                  }
+                />
+              </div>
+            </div>
+            <ul
+              tabIndex={0}
+              className=" z-[1] shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 mt-3"
+            >
+              <li className="flex flex-col gap-1 m-0 p-0">
+                <h2 className="text-base font-medium text-gray-700">
+                  {loginUser?.name ?? "Anonymous"}
+                </h2>
+                <h2 className="text-[13px] font-medium text-gray-500 ">
+                  {loginUser?.email ?? "null@gmail.com"}
+                </h2>
+              </li>
+              <li className="py-3">
+                <a
+                  className="text-base font-medium text-gray-600"
+                  onClick={() => signOut()}
+                >
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </>

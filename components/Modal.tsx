@@ -6,8 +6,6 @@ import { SearchDataContext } from "@/context/SearchDataContext";
 import { CldUploadButton } from "next-cloudinary";
 import { useRouter } from "next/navigation";
 import { BookingContext } from "@/context/BookingContext";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { isValid } from "@/utils/ValidFieldFunc";
 
 const Modal = ({ modal, showModal, selectedCar }: any) => {
@@ -103,17 +101,6 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
     if (res.status === 200) {
       setBookingData(res.data);
       router.push("/review-pay");
-    } else {
-      toast.error("Booking can't be successfull!", {
-        position: "top-right",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
     }
   };
   const isAllFieldValid = () => {
@@ -478,7 +465,6 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
           </div>
         </div>
       </dialog>
-      {/* <ToastContainer /> */}
     </>
   );
 };

@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import React from "react";
 import Privacy from "./Privacy";
 
 export const metadata: Metadata = {

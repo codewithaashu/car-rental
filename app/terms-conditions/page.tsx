@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import React from "react";
 import Terms from "./Terms";
 
 export const metadata: Metadata = {

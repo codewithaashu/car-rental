@@ -1,9 +1,5 @@
-import AboutUs from "@/components/AboutUs";
-import ExploreRentals from "@/components/ExploreRentals";
-import OurJourney from "@/components/OurJourney";
-import Testinomial from "@/components/Testinomial";
 import { Metadata } from "next";
-import React from "react";
+import Layout from "./Layout";
 
 export const metadata: Metadata = {
   title: "About - CarLand",
@@ -13,12 +9,7 @@ export const metadata: Metadata = {
 const page = () => {
   return (
     <>
-      <div className="py-5">
-        <AboutUs />
-        <ExploreRentals />
-        <OurJourney />
-        <Testinomial />
-      </div>
+      <Layout />
     </>
   );
 };
