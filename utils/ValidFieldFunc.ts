@@ -1,11 +1,16 @@
 const regexs: any = {
+  name: /^[a-zA-Z ]{3,20}$/,
+  email:
+    /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+  password: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+  cPassword: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
   fname: /^[a-zA-Z ]{3,20}$/,
   lname: /^[a-zA-Z ]{3,30}$/,
   address1: /^[a-zA-Z0-9\s,.'-]{3,50}$/,
   address2: /^[a-zA-Z0-9\s,.'-]{3,50}$/,
   city: /^[a-zA-Z ]{3,30}$/,
   state: /^[a-zA-Z ]{3,30}$/,
-  contactNumber: /^[6-9]\d{9}$/,
+  phoneNumber: /^[6-9]\d{9}$/,
   dlNumber:
     // /^(([A-Z]{2}[0-9]{2}[A-Z]{1})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$/,
     /^(([A-Z]{2}[0-9]{2}[A-Z]{1}(-))((19|20)[0-9]{2}(-)[0-9]{7}))$/,
@@ -99,7 +104,7 @@ export const isValid = (field: any, value: any) => {
     } else {
       return { valid: false, message: "Invalid State name." };
     }
-  } else if (field === "contactNumber") {
+  } else if (field === "phoneNumber") {
     if (value.length === 0) {
       return { valid: false, message: "Contact number cannot be blank." };
     } else if (value.length < 10 || value.length > 10) {
@@ -139,6 +144,44 @@ export const isValid = (field: any, value: any) => {
       return { valid: true, message: null };
     } else {
       return { valid: false, message: "Invalid dropoff time" };
+    }
+  } else if (field === "name") {
+    if (value.length === 0) {
+      return { valid: false, message: "Name cannot be blank." };
+    } else if (value.length < 3 || value.length > 20) {
+      return {
+        valid: false,
+        message: "Name must be b/w 3 and 20 characters.",
+      };
+    } else if (res) {
+      return { valid: true, message: null };
+    } else {
+      return { valid: false, message: "Invalid Name." };
+    }
+  } else if (field === "email") {
+    if (value.length === 0) {
+      return { valid: false, message: "Email cannot be blank." };
+    } else if (value.length < 3) {
+      return {
+        valid: false,
+        message: "Email must be b/w 3 and 20 characters.",
+      };
+    } else if (res) {
+      return { valid: true, message: null };
+    } else {
+      return { valid: false, message: "Invalid Email." };
+    }
+  } else if (field === "password" || field === "cPassword") {
+    if (value.length === 0) {
+      return { valid: false, message: "Password cannot be blank." };
+    } else if (res) {
+      return { valid: true, message: null };
+    } else {
+      return {
+        valid: false,
+        message:
+          "Minimum eight characters, at least one letter, one number and one special character.",
+      };
     }
   }
 };

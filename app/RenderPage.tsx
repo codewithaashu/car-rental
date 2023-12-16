@@ -13,9 +13,37 @@ import { useContext, useEffect, useState } from "react";
 import { LoginUserContext } from "@/context/LoginUserContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import axios from "axios";
 
 const RenderPage = () => {
   const { loginUser, setLoginUser } = useContext(LoginUserContext);
+  console.log(loginUser);
+
+  const { data, status } = useSession();
+  const registerAuthenticateUser = async () => {
+    try {
+      const { name, email, image }: any = data?.user;
+      const res = await axios.post("/api/login", { email });
+      if (res.data) {
+        return;
+      } else {
+        const registerUser = await axios.post("/api/register", {
+          name,
+          email,
+          image,
+        });
+      }
+    } catch (err) {
+      throw err;
+    }
+  };
+  //stored data of user who has login by oauth
+  useEffect(() => {
+    if (status === "authenticated") {
+      registerAuthenticateUser();
+    }
+  }, [status]);
+  //user try to login by login button
   if (loginUser) {
     return (
       <>
@@ -34,7 +62,7 @@ const RenderPage = () => {
       </>
     );
   }
-  const { data, status } = useSession();
+  //user try to login by oauth
   if (status === "loading") {
     return <Loading />;
   } else if (status === "unauthenticated") {

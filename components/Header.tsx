@@ -6,6 +6,7 @@ import { signOut } from "next-auth/react";
 import { LoginUserContext } from "@/context/LoginUserContext";
 const Header = () => {
   const { loginUser } = useContext(LoginUserContext);
+
   return (
     <>
       <div className="hidden md:flex justify-between p-5 items-center border-b-2 shadow-sm">
@@ -60,13 +61,14 @@ const Header = () => {
             className="btn btn-ghost btn-circle avatar"
           >
             <div className="w-10 rounded-full">
-              <img
-                alt="User Avatar"
-                src={
-                  loginUser?.image ??
-                  "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                }
-              />
+              {loginUser?.image === "undefined" ? (
+                <img
+                  src="https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png"
+                  alt="User Avatar"
+                />
+              ) : (
+                <img alt="User Avatar" src={loginUser?.image} />
+              )}
             </div>
           </div>
           <ul
@@ -77,8 +79,8 @@ const Header = () => {
               <h2 className="text-base font-medium text-gray-700">
                 {loginUser?.name ?? "Anonymous"}
               </h2>
-              <h2 className="text-[13px] font-medium text-gray-500 ">
-                {loginUser?.email ?? "null@gmail.com"}
+              <h2 className="text-xs font-medium text-gray-500">
+                {loginUser?.email.slice(0, 30) ?? "null@gmail.com"}
               </h2>
             </li>
             <li onClick={() => signOut()} className="py-3">

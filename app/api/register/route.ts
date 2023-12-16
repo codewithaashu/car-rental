@@ -3,11 +3,11 @@ import request, { gql } from "graphql-request";
 export async function POST(req: Request) {
   const API_URL: any = process.env.NEXT_PUBLIC_API_URL;
   try {
-    const { name, email, phoneNumber, password, imageURL } = await req.json();
+    const { name, email, phoneNumber, password, image } = await req.json();
     const query =
       gql`mutation Register {
-            createCustomer(
-              data: {name: "` +
+      createCustomer(
+        data: {name: "` +
       name +
       `", email: "` +
       email +
@@ -16,17 +16,22 @@ export async function POST(req: Request) {
       `", phoneNumber: "` +
       phoneNumber +
       `", image: "` +
-      imageURL +
+      image +
       `"}
-            ) {
-                id
-              createdAt
-              name
-              email
-              image
-              phoneNumber
-            }
-          }`;
+      ) {
+        id
+        image
+        email
+        name
+        phoneNumber
+        createdAt
+      }
+      publishCustomer(where: {email: "` +
+      email +
+      `"}) {
+        id
+      }
+    }`;
     const res: any = await request(API_URL, query);
     return Response.json(res, { status: 200 });
   } catch (err) {

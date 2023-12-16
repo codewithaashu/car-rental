@@ -9,6 +9,7 @@ import { BookingContext } from "@/context/BookingContext";
 import { ConfirmBookingContext } from "@/context/ConfirmBookingContext";
 import Authprovider from "@/components/Authprovider";
 import { LoginUserContext } from "@/context/LoginUserContext";
+import { ToastContainer } from "react-toastify";
 
 const inter = Outfit({ subsets: ["latin"] });
 
@@ -47,6 +48,18 @@ export default function RootLayout({
                       value={{ confirmBookingData, setConfirmBookingData }}
                     >
                       {children}
+                      <ToastContainer
+                        position="top-right"
+                        autoClose={3000}
+                        hideProgressBar={false}
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="colored"
+                      />
                     </ConfirmBookingContext.Provider>
                   </BookingContext.Provider>
                 </CarsErrorMessageContext.Provider>

@@ -9,7 +9,6 @@ const GithubId: any = process.env.GITHUB_CLIENT_ID;
 const GithubSecret: any = process.env.GITHUB_CLIENT_SECRET;
 const FacebookId: any = process.env.FACEBOOK_CLIENT_ID;
 const FacebookSecret: any = process.env.FACEBOOK_CLIENT_SECRET;
-console.log(GithubId, GithubSecret);
 
 const handler = NextAuth({
   providers: [
