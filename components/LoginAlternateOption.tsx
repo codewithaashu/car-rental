@@ -6,17 +6,6 @@ const LoginAlternateOption = () => {
       <div className="divider text-gray-600">Or</div>
       <div className="flex flex-col gap-5">
         <div
-          className="bg-[#4267b2] text-white flex p-3 items-center justify-evenly rounded-md cursor-pointer text-base font-semibold"
-          onClick={() => signIn("facebook")}
-        >
-          <img
-            src="https://res.cloudinary.com/ddzlhdlda/image/upload/v1702501361/CarRental/Facebook_Logo_2023_seqnrv.png"
-            alt="Google logo"
-            className="h-[24px] cursor-pointer"
-          />
-          <h2>Login with Facebook</h2>
-        </div>
-        <div
           className="border-[1px] bg-white border-[#CACACA] text-gray-700 flex p-3 items-center justify-evenly rounded-md cursor-pointer text-base font-semibold"
           onClick={() => signIn("google")}
         >

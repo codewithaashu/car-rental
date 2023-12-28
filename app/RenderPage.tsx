@@ -17,8 +17,6 @@ import axios from "axios";
 
 const RenderPage = () => {
   const { loginUser, setLoginUser } = useContext(LoginUserContext);
-  console.log(loginUser);
-
   const { data, status } = useSession();
   const registerAuthenticateUser = async () => {
     try {

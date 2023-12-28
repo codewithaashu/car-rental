@@ -17,6 +17,7 @@ export async function POST(req: Request) {
       pickUpInfo,
       dropOffInfo,
       vehicleID,
+      userEmail,
     } = await req.json();
     const mutationQuery =
       gql`mutation Booking {
@@ -47,6 +48,8 @@ export async function POST(req: Request) {
       drivingLicenseImage +
       `",car: {connect: {id: "` +
       vehicleID +
+      `"}},customerBookings: {connect: {email: "` +
+      userEmail +
       `"}}}
   ) {
     id
@@ -67,7 +70,18 @@ export async function POST(req: Request) {
       dailyPrice
       imgSrc
     }
+    customerBookings {
+      email
+      name
+      phoneNumber
+    }
   }
+  publishCustomer(where: {email: "` +
+      userEmail +
+      `"}){
+        id
+        email
+      }
 }`;
     const { createBooking }: any = await request(API_URL, mutationQuery);
     return Response.json(createBooking, { status: 200 });

@@ -7,6 +7,7 @@ import { CldUploadButton } from "next-cloudinary";
 import { useRouter } from "next/navigation";
 import { BookingContext } from "@/context/BookingContext";
 import { isValid } from "@/utils/ValidFieldFunc";
+import { LoginUserContext } from "@/context/LoginUserContext";
 
 const Modal = ({ modal, showModal, selectedCar }: any) => {
   const router = useRouter();
@@ -50,6 +51,7 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
     aadharNumber: false,
     aadharImage: false,
   });
+  const { loginUser } = useContext(LoginUserContext);
   const handlePersonalDetails = (e: any) => {
     const inputValue = e.target.value;
     setPersonalDetails({ ...personalDetails, [e.target.name]: inputValue });
@@ -96,6 +98,7 @@ const Modal = ({ modal, showModal, selectedCar }: any) => {
       pickUpInfo: pickUpDate + "," + pickUpTime,
       dropOffInfo: dropOffDate + "," + dropOffTime,
       vehicleID: selectedCar.id,
+      userEmail: loginUser.email,
     };
     const res = await axios.post("/api/booking", postData);
     if (res.status === 200) {

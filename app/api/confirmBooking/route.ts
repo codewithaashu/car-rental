@@ -48,6 +48,7 @@ export async function POST(req: Request) {
       `" }) {
           id
         }
+        
       }
     `;
     const { updateBooking }: any = await request(API_URL, query);

@@ -11,6 +11,7 @@ const regexs: any = {
   city: /^[a-zA-Z ]{3,30}$/,
   state: /^[a-zA-Z ]{3,30}$/,
   phoneNumber: /^[6-9]\d{9}$/,
+  contactNumber: /^[6-9]\d{9}$/,
   dlNumber:
     // /^(([A-Z]{2}[0-9]{2}[A-Z]{1})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$/,
     /^(([A-Z]{2}[0-9]{2}[A-Z]{1}(-))((19|20)[0-9]{2}(-)[0-9]{7}))$/,
@@ -104,7 +105,7 @@ export const isValid = (field: any, value: any) => {
     } else {
       return { valid: false, message: "Invalid State name." };
     }
-  } else if (field === "phoneNumber") {
+  } else if (field === "phoneNumber" || field === "contactNumber") {
     if (value.length === 0) {
       return { valid: false, message: "Contact number cannot be blank." };
     } else if (value.length < 10 || value.length > 10) {

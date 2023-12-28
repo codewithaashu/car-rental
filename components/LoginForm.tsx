@@ -1,11 +1,13 @@
 "use client";
 import { isValid } from "@/utils/ValidFieldFunc";
-import axios from "axios";
+import { getUser } from "@/utils/getUser";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 const LoginForm = ({ setIsRefresh, setLoginUser }: any) => {
+  const router = useRouter();
   const [formValue, setFormValue] = useState<any>({ email: "", password: "" });
   const [errorMessages, setErrorMessage] = useState<any>(null);
   const [validField, setValidField] = useState<any>({
@@ -21,24 +23,20 @@ const LoginForm = ({ setIsRefresh, setLoginUser }: any) => {
     setErrorMessage({ ...errorMessages, [e.target.name]: message });
     setValidField({ ...validField, [e.target.name]: valid });
   };
-  const getData = async (email: any) => {
-    const { data } = await axios.post("/api/login", { email });
-    return data;
-  };
   const handleSubmit = async () => {
     const { email, password } = formValue;
     //api call
-    const apiData = await getData(email);
-    if (apiData === null) {
+    const user = await getUser(email);
+    if (user === null) {
       toast.error("User is not registered.");
       return;
     }
-    if (apiData.password !== password) {
+    if (user.password !== password) {
       toast.error("Invalid login crediantial");
       return;
     }
     toast.success("User is successfully login.");
-    setLoginUser(apiData);
+    setLoginUser(user);
   };
   const isAllFieldValid = () => {
     let obj = Object.keys(validField);
@@ -128,7 +126,10 @@ const LoginForm = ({ setIsRefresh, setLoginUser }: any) => {
               </span>
             )}
           </div>
-          <h2 className="text-sm font-medium text-red-400 text-center">
+          <h2
+            className="text-sm font-medium text-red-400 text-center cursor-pointer"
+            onClick={() => router.push("/forgotPassword")}
+          >
             Forgot Password?
           </h2>
         </div>

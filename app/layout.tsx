@@ -10,7 +10,8 @@ import { ConfirmBookingContext } from "@/context/ConfirmBookingContext";
 import Authprovider from "@/components/Authprovider";
 import { LoginUserContext } from "@/context/LoginUserContext";
 import { ToastContainer } from "react-toastify";
-
+import { RegisterUserContext } from "@/context/RegisterUserContext";
+import "react-toastify/dist/ReactToastify.css";
 const inter = Outfit({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -28,6 +29,10 @@ export default function RootLayout({
   const [bookingData, setBookingData] = useState<any>(null);
   const [confirmBookingData, setConfirmBookingData] = useState<any>(null);
   const [loginUser, setLoginUser] = useState<any>(null);
+  const [registerUserData, setRegisterUserData] = useState<any>({
+    otp: "",
+    email: "",
+  });
   return (
     <html lang="en">
       <head>
@@ -47,19 +52,23 @@ export default function RootLayout({
                     <ConfirmBookingContext.Provider
                       value={{ confirmBookingData, setConfirmBookingData }}
                     >
-                      {children}
-                      <ToastContainer
-                        position="top-right"
-                        autoClose={3000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme="colored"
-                      />
+                      <RegisterUserContext.Provider
+                        value={{ registerUserData, setRegisterUserData }}
+                      >
+                        {children}
+                        <ToastContainer
+                          position="top-right"
+                          autoClose={3000}
+                          hideProgressBar={false}
+                          newestOnTop={false}
+                          closeOnClick
+                          rtl={false}
+                          pauseOnFocusLoss
+                          draggable
+                          pauseOnHover
+                          theme="colored"
+                        />
+                      </RegisterUserContext.Provider>
                     </ConfirmBookingContext.Provider>
                   </BookingContext.Provider>
                 </CarsErrorMessageContext.Provider>
