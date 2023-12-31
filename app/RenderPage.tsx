@@ -8,12 +8,12 @@ import Testinomial from "@/components/Testinomial";
 import LoginAlternateOption from "@/components/LoginAlternateOption";
 import LoginForm from "@/components/LoginForm";
 import { useSession } from "next-auth/react";
-import Loading from "./Loading";
 import { useContext, useEffect, useState } from "react";
 import { LoginUserContext } from "@/context/LoginUserContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import axios from "axios";
+import Loading from "./Loading";
 
 const RenderPage = () => {
   const { loginUser, setLoginUser } = useContext(LoginUserContext);
