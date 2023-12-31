@@ -25,21 +25,15 @@ const Header = () => {
           </Link>
           <Link
             className="text-base text-gray-600 font-semibold cursor-pointer hover:text-black hover:border-b-[3px] border-red-600"
-            href="/booking"
-          >
-            Booking
-          </Link>
-          <Link
-            className="text-base text-gray-600 font-semibold cursor-pointer hover:text-black hover:border-b-[3px] border-red-600"
             href="/about"
           >
             About
           </Link>
           <Link
             className="text-base text-gray-600 font-semibold cursor-pointer hover:text-black hover:border-b-[3px] border-red-600"
-            href="/contact-us"
+            href="/bookings"
           >
-            Contact Us
+            Booking
           </Link>
           <Link
             className="text-base text-gray-600 font-semibold cursor-pointer hover:text-black hover:border-b-[3px] border-red-600"
@@ -52,6 +46,12 @@ const Header = () => {
             href="/terms-conditions"
           >
             Terms & Conditions
+          </Link>
+          <Link
+            className="text-base text-gray-600 font-semibold cursor-pointer hover:text-black hover:border-b-[3px] border-red-600"
+            href="/contact-us"
+          >
+            Contact Us
           </Link>
         </div>
         <div className="dropdown dropdown-end">
@@ -127,14 +127,6 @@ const Header = () => {
               <li>
                 <Link
                   className="text-base text-gray-600 font-semibold cursor-pointer hover:text-black"
-                  href="/booking"
-                >
-                  Booking
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="text-base text-gray-600 font-semibold cursor-pointer hover:text-black"
                   href="/about"
                 >
                   About
@@ -143,9 +135,9 @@ const Header = () => {
               <li>
                 <Link
                   className="text-base text-gray-600 font-semibold cursor-pointer hover:text-black"
-                  href="/contact-us"
+                  href="/booking"
                 >
-                  Contact Us
+                  Booking
                 </Link>
               </li>
               <li>
@@ -162,6 +154,14 @@ const Header = () => {
                   href="/terms-conditions"
                 >
                   Terms & Conditions
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-base text-gray-600 font-semibold cursor-pointer hover:text-black"
+                  href="/contact-us"
+                >
+                  Contact Us
                 </Link>
               </li>
             </ul>

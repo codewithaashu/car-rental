@@ -1,11 +1,8 @@
 "use client";
 
-import { ConfirmBookingContext } from "@/context/ConfirmBookingContext";
 import { changeDateTimeFormat } from "@/utils/DateFunc";
-import { useContext } from "react";
 
-const PrintPage = () => {
-  const { confirmBookingData } = useContext(ConfirmBookingContext);
+const PrintReciept = ({ details }: any) => {
   const {
     id,
     paymentId,
@@ -15,7 +12,7 @@ const PrintPage = () => {
     paymentAmount,
     car: { model, plateNumber },
     totalAmount,
-  }: any = confirmBookingData;
+  }: any = details;
 
   return (
     <div className="flex flex-col" style={{ minHeight: "100vh" }}>
@@ -133,4 +130,4 @@ const PrintPage = () => {
   );
 };
 
-export default PrintPage;
+export default PrintReciept;

@@ -3,7 +3,8 @@ import request, { gql } from "graphql-request";
 export async function POST(req: Request) {
   const API_URL: any = process.env.NEXT_PUBLIC_API_URL;
   try {
-    const { paymentId, orderId, paymentAmount, id } = await req.json();
+    const { paymentId, orderId, paymentAmount, id, totalAmount } =
+      await req.json();
     const query =
       gql`
       mutation publishedBooking {
@@ -17,6 +18,9 @@ export async function POST(req: Request) {
       `"
             paymentAmount:"` +
       paymentAmount +
+      `"
+      totalAmount:"` +
+      totalAmount +
       `"
           }
           where: { id: "` +

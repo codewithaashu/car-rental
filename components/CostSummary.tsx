@@ -13,9 +13,7 @@ const CostSummary = ({ bookingData }: any) => {
   const [promoMessage, setPromoMessage] = useState<any>(null);
   const [paymentType, setPaymentType] = useState<any>(null);
   const [couponValue, setCouponValue] = useState<any>(0);
-  const { confirmBookingData, setConfirmBookingData } = useContext(
-    ConfirmBookingContext
-  );
+  const { setConfirmBookingData } = useContext(ConfirmBookingContext);
   const { car, pickUpInfo, dropOffInfo, id, name, contactNumber } = bookingData;
   useEffect(() => {}, [paymentType || errorPromo]);
 
@@ -36,6 +34,10 @@ const CostSummary = ({ bookingData }: any) => {
       setPromoMessage("Invalid Coupon");
     }
   };
+  //calculate data
+  const totalDays = diffDates(pickUpInfo, dropOffInfo);
+  const ReservationAmount = totalDays * Number(car.dailyPrice);
+  const totalAmount = ReservationAmount + 600 + 2000 - couponValue;
 
   const makePayment = async ({ bookingID, billingAmount }: any) => {
     //initialize razorpay
@@ -65,6 +67,7 @@ const CostSummary = ({ bookingData }: any) => {
             orderId: response.razorpay_order_id,
             paymentAmount: billingAmount,
             id,
+            totalAmount,
           });
           setConfirmBookingData({ ...data, totalAmount });
         }
@@ -95,10 +98,6 @@ const CostSummary = ({ bookingData }: any) => {
     });
   };
 
-  //calculate data
-  const totalDays = diffDates(pickUpInfo, dropOffInfo);
-  const ReservationAmount = totalDays * Number(car.dailyPrice);
-  const totalAmount = ReservationAmount + 600 + 2000 - couponValue;
   return (
     <div className="p-5 rounded-md border-2 border-gray-200 flex flex-col gap-5 shadow-md w-fit justify-self-center md:justify-self-end h-fit md:h-full">
       <div className="flex flex-col gap-5 items-center border-b-2 border-gray-100 pb-3">
