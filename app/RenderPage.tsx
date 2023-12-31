@@ -13,7 +13,7 @@ import { LoginUserContext } from "@/context/LoginUserContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import axios from "axios";
-import Loading from "./Loading";
+import Loader from "./Loader";
 
 const RenderPage = () => {
   const { loginUser, setLoginUser } = useContext(LoginUserContext);
@@ -62,7 +62,7 @@ const RenderPage = () => {
   }
   //user try to login by oauth
   if (status === "loading") {
-    return <Loading />;
+    return <Loader />;
   } else if (status === "unauthenticated") {
     return (
       <div className="bg-[#F1F2F6] min-h-screen w-full flex justify-center items-center">

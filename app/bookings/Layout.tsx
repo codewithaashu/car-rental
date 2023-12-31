@@ -6,7 +6,7 @@ import { LoginUserContext } from "@/context/LoginUserContext";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
-import Loading from "../Loading";
+import Loader from "../Loader";
 
 const Layout = () => {
   const router = useRouter();
@@ -76,7 +76,7 @@ const Layout = () => {
           <Footer />
         </>
       ) : (
-        <Loading />
+        <Loader />
       )}
     </>
   );
