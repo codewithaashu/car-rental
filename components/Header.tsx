@@ -100,7 +100,11 @@ const Header = ({ loginUser }: any) => {
           </ul>
         </div>
       </div>
-      <div className="navbar bg-base-100 md:hidden">
+      <div
+        className={`navbar bg-base-100 ${
+          !loginUser && path === "/" ? "hidden" : "md:hidden"
+        }`}
+      >
         <div className="navbar-start">
           <div className="dropdown">
             <div
@@ -146,7 +150,7 @@ const Header = ({ loginUser }: any) => {
               <li>
                 <Link
                   className="text-base text-gray-600 font-semibold cursor-pointer hover:text-black"
-                  href="/booking"
+                  href="/bookings"
                 >
                   Booking
                 </Link>
@@ -191,12 +195,19 @@ const Header = ({ loginUser }: any) => {
               className="btn btn-ghost btn-circle avatar"
             >
               <div className="w-10 rounded-full">
-                <img
-                  src={loginUser?.image ?? "https://github.com/shadcn.png"}
-                  alt="User Avatar"
-                  width={2000}
-                  height={2000}
-                />
+                {loginUser?.image === "undefined" ? (
+                  <Image
+                    src={"https://github.com/shadcn.png"}
+                    alt="User Avatar"
+                    width={2000}
+                    height={2000}
+                  />
+                ) : (
+                  <img
+                    src={loginUser?.image ?? "https://github.com/shadcn.png"}
+                    alt="User Avatar"
+                  />
+                )}
               </div>
             </div>
             <ul
