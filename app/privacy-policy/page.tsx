@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Privacy from "./Privacy";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Privacy Policy - CarLand",
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
 const page = () => {
   return (
     <>
-      <Privacy />
+      <Suspense>
+        <Privacy />
+      </Suspense>
     </>
   );
 };
