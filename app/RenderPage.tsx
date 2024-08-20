@@ -17,6 +17,7 @@ import Loader from "./Loader";
 const RenderPage = () => {
   const { loginUser, setLoginUser } = useContext(LoginUserContext);
   const { data, status } = useSession();
+
   const registerAuthenticateUser = async () => {
     try {
       const { name, email, image }: any = data?.user;

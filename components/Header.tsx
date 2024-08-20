@@ -1,15 +1,21 @@
 "use context";
 import Image from "next/image";
-import React, { useContext } from "react";
+import React from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import { LoginUserContext } from "@/context/LoginUserContext";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 const Header = ({ loginUser }: any) => {
-  // const { loginUser } = useContext(LoginUserContext);
+  const path = usePathname();
+  const router = useRouter();
 
   return (
     <>
-      <div className="hidden md:flex justify-between p-5 items-center border-b-2 shadow-sm">
+      <div
+        className={` justify-between p-5 items-center border-b-2 shadow-sm ${
+          !loginUser && path === "/" ? "hidden" : "hidden md:flex"
+        }`}
+      >
         <div>
           <Image src="/logo.svg" alt="Logo" width="100" height="10" />
         </div>
@@ -62,12 +68,17 @@ const Header = ({ loginUser }: any) => {
           >
             <div className="w-10 rounded-full">
               {loginUser?.image === "undefined" ? (
-                <img
-                  src="https://w7.pngwing.com/pngs/831/88/png-transparent-user-profile-computer-icons-user-interface-mystique-miscellaneous-user-interface-design-smile-thumbnail.png"
+                <Image
+                  src={"https://github.com/shadcn.png"}
                   alt="User Avatar"
+                  width={2000}
+                  height={2000}
                 />
               ) : (
-                <img alt="User Avatar" src={loginUser?.image} />
+                <img
+                  src={loginUser?.image ?? "https://github.com/shadcn.png"}
+                  alt="User Avatar"
+                />
               )}
             </div>
           </div>
@@ -181,11 +192,10 @@ const Header = ({ loginUser }: any) => {
             >
               <div className="w-10 rounded-full">
                 <img
+                  src={loginUser?.image ?? "https://github.com/shadcn.png"}
                   alt="User Avatar"
-                  src={
-                    loginUser?.image ??
-                    "https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                  }
+                  width={2000}
+                  height={2000}
                 />
               </div>
             </div>
@@ -204,7 +214,10 @@ const Header = ({ loginUser }: any) => {
               <li className="py-3">
                 <a
                   className="text-base font-medium text-gray-600"
-                  onClick={() => signOut()}
+                  onClick={() => {
+                    router.push("/");
+                    signOut();
+                  }}
                 >
                   Logout
                 </a>
