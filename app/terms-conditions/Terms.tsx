@@ -1,21 +1,11 @@
 "use client";
 import { terms } from "@/DB/terms";
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import { LoginUserContext } from "@/context/LoginUserContext";
-import { useRouter } from "next/navigation";
-import React, { useContext } from "react";
+import React from "react";
 
 const Terms = () => {
-  const router = useRouter();
-  const { loginUser } = useContext(LoginUserContext);
-  if (!loginUser) {
-    router.push("/");
-    return;
-  }
   return (
     <>
-      <Header />
       <div className="flex justify-center">
         <div className="flex flex-col px-5 py-7 md:px-10 md:py-10 w-full md:w-4/5 items-center gap-8">
           <div className="text-2xl font-semibold ">TERMS & CONDITIONS</div>

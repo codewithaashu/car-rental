@@ -12,6 +12,7 @@ import { LoginUserContext } from "@/context/LoginUserContext";
 import { ToastContainer } from "react-toastify";
 import { RegisterUserContext } from "@/context/RegisterUserContext";
 import "react-toastify/dist/ReactToastify.css";
+import Header from "@/components/Header";
 const inter = Outfit({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -38,7 +39,7 @@ export default function RootLayout({
       <head>
         <link rel="shortcut icon" href="/favicon.png" />
       </head>
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning={true}>
         <Authprovider>
           <LoginUserContext.Provider value={{ loginUser, setLoginUser }}>
             <SearchDataContext.Provider value={{ searchData, setSearchData }}>
@@ -55,6 +56,7 @@ export default function RootLayout({
                       <RegisterUserContext.Provider
                         value={{ registerUserData, setRegisterUserData }}
                       >
+                        <Header loginUser={loginUser} />
                         {children}
                         <ToastContainer
                           position="top-right"

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import React, { Suspense } from "react";
+import React from "react";
 import Layout from "./Layout";
 
 export const metadata: Metadata = {
@@ -8,11 +8,7 @@ export const metadata: Metadata = {
     "Book the selected car effortlessly. Pay for Driving Only, Book the Car Now",
 };
 const page = () => {
-  return (
-    <Suspense>
-      <Layout />
-    </Suspense>
-  );
+  return <Layout />;
 };
 
 export default page;

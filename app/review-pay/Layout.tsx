@@ -1,29 +1,29 @@
 "use client";
 import CostSummary from "@/components/CostSummary";
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import RememberPoints from "@/components/RememberPoints";
 import RentDetails from "@/components/RentDetails";
 import { BookingContext } from "@/context/BookingContext";
 import { LoginUserContext } from "@/context/LoginUserContext";
 import { useRouter } from "next/navigation";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 const Layout = () => {
   const router = useRouter();
   const { bookingData } = useContext(BookingContext);
   const { loginUser } = useContext(LoginUserContext);
-  if (!loginUser) {
-    router.push("/");
-    return;
-  }
+  useEffect(() => {
+    if (!loginUser) {
+      router.push("/");
+      return;
+    }
+  }, []);
 
   const handleSubmit = () => {
     router.push("/");
   };
   return (
     <>
-      <Header />
       <div className="flex flex-col px-5 sm:px-10 md:px-20 py-10 gap-5">
         {bookingData ? (
           <>

@@ -8,6 +8,9 @@ const nextConfig = {
   images: {
     domains: ["res.cloudinary.com"],
   },
+  httpAgentOptions: {
+    keepAlive: true,
+  },
 };
 
 module.exports = nextConfig;

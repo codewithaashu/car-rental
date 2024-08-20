@@ -1,22 +1,12 @@
 "use client";
 import Available from "@/components/Available";
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import MapBox from "@/components/MapBox";
 import WriteToUs from "@/components/WriteToUs";
-import { LoginUserContext } from "@/context/LoginUserContext";
-import { useRouter } from "next/navigation";
-import React, { useContext } from "react";
+import React from "react";
 const Layout = () => {
-  const router = useRouter();
-  const { loginUser } = useContext(LoginUserContext);
-  if (!loginUser) {
-    router.push("/");
-    return;
-  }
   return (
     <>
-      <Header />
       <div className="flex justify-center py-10 w-full">
         <div className="flex flex-col gap-5 w-full items-center  ">
           <WriteToUs />

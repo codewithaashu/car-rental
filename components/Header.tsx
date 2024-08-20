@@ -4,8 +4,8 @@ import React, { useContext } from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { LoginUserContext } from "@/context/LoginUserContext";
-const Header = () => {
-  const { loginUser } = useContext(LoginUserContext);
+const Header = ({ loginUser }: any) => {
+  // const { loginUser } = useContext(LoginUserContext);
 
   return (
     <>

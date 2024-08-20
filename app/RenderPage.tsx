@@ -10,7 +10,6 @@ import LoginForm from "@/components/LoginForm";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import { LoginUserContext } from "@/context/LoginUserContext";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import axios from "axios";
 import Loader from "./Loader";
@@ -40,12 +39,15 @@ const RenderPage = () => {
     if (status === "authenticated") {
       registerAuthenticateUser();
     }
+    if (data) {
+      setLoginUser(data?.user);
+    }
   }, [status]);
+  // setLoginUser(data?.user);
   //user try to login by login button
   if (loginUser) {
     return (
       <>
-        <Header />
         <main className="min-h-screen ">
           <div className="my-7">
             <Hero />
@@ -73,10 +75,9 @@ const RenderPage = () => {
       </div>
     );
   }
-  setLoginUser(data?.user);
+
   return (
     <>
-      <Header />
       <main className="min-h-screen ">
         <div className="my-7">
           <Hero />
